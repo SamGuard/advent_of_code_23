@@ -90,7 +90,7 @@ int main() {
             cursor = cursor_2 + 2;
         }
     }
-    
+
     printf("\n%lu\n", sum);
     return 0;
 }

@@ -15,7 +15,7 @@ uint8_t match_dig(char *in) {
         for (uint8_t j = 0; j < 8; j++) {
             if (in[j] == '\0') {
                 break;
-            } 
+            }
             if (dig[j] == '\0') {
                 return  i + 1;
             }
