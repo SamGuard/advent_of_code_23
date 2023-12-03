@@ -28,7 +28,7 @@ uint8_t match_dig(char *in) {
 }
 
 int main() {
-    FILE *f = fopen("day1.in", "r");
+    FILE *f = fopen("in/day1.in", "r");
 
     uint64_t sum = 0;
     uint8_t is_dig = 0;

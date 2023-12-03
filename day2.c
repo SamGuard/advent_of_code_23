@@ -39,7 +39,7 @@ uint8_t get_colour(char *str) {
 }
 
 int main() {
-    FILE* f = fopen("day2.in", "r");
+    FILE* f = fopen("in/day2.in", "r");
     uint64_t sum = 0, game_id = 1, colours_cnt[3], max_col_cnt[3];
     char* cursor;
     while (fgets(in_buff, sizeof(char) * MAX_LINE_LEN, f) != NULL) {
