@@ -131,19 +131,47 @@ int main() {
         memcpy(grid + row * width, in_buff, width);
         row++;
     }
-    const uint32_t grid_size = row * width;
-    memset(tracker, '.', sizeof(char) * grid_size);
-    memset(crumbs, 0, sizeof(BreadCrumb_t) * grid_size);
-    grid_print(grid, width, grid_size, -1);
-    bounce(grid, width, grid_size, 0, 1, 0);
-    grid_print(tracker, width, grid_size, -1);
 
-    uint32_t sum = 0;
-    for (uint32_t i = 0; i < grid_size; i++) {
-        if (tracker[i] == '#') {
-            sum += 1;
+    const uint32_t grid_size = row * width, height = row;
+    uint32_t max_sum = 0;
+    grid_print(grid, width, grid_size, -1);
+
+    for (uint32_t i = 0; i < 2 * (width + height); i++) {
+        uint32_t pos, row;
+        int32_t dir;
+        memset(tracker, '.', sizeof(char) * grid_size);
+        memset(crumbs, 0, sizeof(BreadCrumb_t) * grid_size);
+
+        if (i < width) {
+            pos = i;
+            dir = width;
+            row = -1;
+        } else if (i < 2 * width) {
+            pos = (height - 1) * width + (i - width);
+            dir = -width;
+            row = -1;
+        } else if (i < 2 * width + height) {
+            pos = (i - 2 * width) * width;
+            dir = 1;
+            row = pos / width;
+        } else if (i < 2 * (width + height)) {
+            pos = (i - 2 * width + height) * width + width - 1;
+            dir = -1;
+            row = pos / width;
+        }
+        bounce(grid, width, grid_size, pos, dir, row);
+        grid_print(tracker, width, grid_size, -1);
+        uint32_t sum = 0;
+        for (uint32_t i = 0; i < grid_size; i++) {
+            if (tracker[i] == '#') {
+                sum += 1;
+            }
+        }
+        printf("%u\n", sum);
+        if (sum > max_sum) {
+            max_sum = sum;
         }
     }
-    printf("\n%u\n", sum);
+    printf("\nMax sum: %u\n", max_sum);
     return 0;
 }
